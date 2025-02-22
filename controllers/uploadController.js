@@ -95,7 +95,6 @@ export const listFiles = (req, res) => {
       };
     });
 
-    console.log("Archivos enviados al frontend:", fileDetails);
     res.json(fileDetails);
 
   } catch (error) {
@@ -123,7 +122,6 @@ export const listRecycledFiles = (req, res) => {
       };
     });
 
-    console.log("Archivos reciclados enviados al frontend:", fileDetails);
     res.json(fileDetails);
 
   } catch (error) {

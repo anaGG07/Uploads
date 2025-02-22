@@ -57,6 +57,7 @@ const saveSubscribers = (emails) => {
       "utf8"
     );
     console.log("Correos guardados en subscribers.json:", [...emails]);
+
   } catch (error) {
     console.error("Error al guardar los suscriptores:", error);
   }
@@ -88,7 +89,9 @@ export const subscribeEmail = (req, res) => {
 
 // Función para enviar el correo
 export const sendEmail = async () => {
+
   subscribedEmails = loadSubscribers();
+
   if (subscribedEmails.size === 0) {
     console.log("No hay emails suscritos.");
     return;
@@ -100,6 +103,7 @@ export const sendEmail = async () => {
 
   const uploadFiles = fs.readdirSync(uploadPath).map((file) => {
     const stats = fs.statSync(path.join(uploadPath, file));
+
     return {
       name: file,
       size: formatFileSize(stats.size),
@@ -110,6 +114,7 @@ export const sendEmail = async () => {
  
   const recycledFiles = fs.readdirSync(recyclePath).map((file) => {
     const stats = fs.statSync(path.join(recyclePath, file));
+
     return {
       name: file,
       size: formatFileSize(stats.size),
@@ -159,7 +164,7 @@ export const sendEmail = async () => {
 };
 
 // Configurar la tarea automática con cron
-cron.schedule("*/5 * * * *", () => { // <--- MODIFICAR AQUI EL TIEMPO PARA ENVIAR LOS EMAILS
+cron.schedule("*/5 * * * *", () => { // <--- MODIFICAR AQUI EL TIEMPO PARA ENVIAR LOS EMAILS (5 minutos para pruebas)
   console.log("Ejecutando envío automático de correos...");
   sendEmail();
 });

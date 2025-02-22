@@ -22,9 +22,11 @@ async function updateChartData() {
 
     //  Verificar si hay datos para mostrar
     if (data.uploads === 0 && data.recycled === 0) {
+      
       canvas.style.display = "none";
       noDataMessage.style.display = "block";
       return;
+
     } else {
       canvas.style.display = "block";
       noDataMessage.style.display = "none";
