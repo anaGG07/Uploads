@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestor de Archivos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 min-h-screen flex flex-col items-center justify-center p-4"
+  >
+    <div
+      class="bg-gray-900 p-6 shadow-2xl rounded-2xl w-full max-w-5xl flex flex-col md:flex-row gap-8"
+    >
+      <!-- PANEL IZQUIERDO -->
+      <div class="flex-1 space-y-6">
+        <h1 class="text-3xl font-bold text-center text-yellow-400">
+          Gestor de Archivos
+        </h1>
+
+        <!-- FORMULARIO ARCHIVOS -->
+        <form
+          id="uploadForm"
+          class="flex items-center gap-4 border border-gray-700 p-4 rounded-xl shadow-sm bg-gray-800"
+        >
+          <input
+            type="file"
+            id="fileInput"
+            name="file"
+            required
+            class="flex-1 border border-yellow-500 rounded-lg p-2 text-sm bg-gray-700 text-white focus:ring-2 focus:ring-yellow-400"
+          />
+          <button
+            type="submit"
+            class="flex items-center gap-2 bg-yellow-500 text-gray-900 py-2 px-4 rounded-xl hover:bg-yellow-600 transition-all"
+          >
+            <i data-lucide="upload"></i> Subir
+          </button>
+        </form>
+
+        <!-- SUBIDOS -->
+        <div>
+          <h2
+            class="text-xl font-semibold text-yellow-400 mb-2 flex items-center gap-2"
+          >
+            <i data-lucide="folder-open"></i> Archivos Subidos
+          </h2>
+          <p id="filesMessage" class="text-center text-yellow-400 hidden">
+            😯 No hay archivos subidos! <br />
+          </p>
+          <ul id="fileList" class="space-y-2 text-black"></ul>
+        </div>
+
+        <!-- "BORRADOS" -->
+        <div>
+          <h2
+            class="text-xl font-semibold text-yellow-400 mb-2 flex items-center gap-2"
+          >
+            <i data-lucide="trash-2"></i> Archivos en Papelera
+          </h2>
+          <p
+            id="recycledMessage"
+            class="text-center text-yellow-400 hidden"
+          >
+            😮‍💨 Todo limpio por aquí...
+          </p>
+          <ul id="fileListTemp" class="space-y-2 text-black"></ul>
+          <button
+            id="recycle"
+            class="flex items-center gap-2 bg-red-500 text-white py-2 px-4 rounded-xl hover:bg-red-600 transition-all mt-4 mx-auto"
+          >
+            <i data-lucide="trash"></i> Vaciar Papelera
+          </button>
+        </div>
+      </div>
+
+      <!-- PANEL DERECHO -->
+      <div
+        class="flex-1 flex items-center justify-center bg-gray-800 p-4 rounded-xl shadow-sm"
+      >
+        <div id="chartContainer" class="w-full h-full">
+          <canvas id="myChart" class="w-full h-64 md:h-full"></canvas>
+          <p id="noDataMessage" class="text-center text-yellow-400 hidden">
+            🙇 No hay datos disponibles para mostrar...
+            <img
+              src="https://media.giphy.com/media/MZocLC5dJprPTcrm65/giphy.gif"
+              alt="sin archivos"
+              class="mx-auto mt-4 rounded-xl shadow-lg"
+            />
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORMULARIO PARA REGISTRAR EMAIL -->
+      <div class="mt-6 p-4 bg-gray-800 rounded-xl shadow-sm">
+        <h2 class="text-xl font-semibold text-yellow-400 mb-2">
+          🔔 Recibir Notificaciones 🔔
+        </h2>
+        <form id="notifyForm" class="flex items-center gap-4">
+          <input
+            type="email"
+            id="emailInput"
+            placeholder="Introduce tu email"
+            required
+            class="flex-1 border border-yellow-500 rounded-lg p-2 text-sm bg-gray-700 text-white focus:ring-2 focus:ring-yellow-400"
+          />
+          <button
+            type="submit"
+            class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-all"
+          >
+            Suscríbete
+          </button>
+        </form>
+        <p id="notifyMessage" class="text-yellow-400 mt-2 hidden"></p>
+      </div>
+
+    <!-- ACTIVACIÓN DE ICONOS  Y SCRIPTS -->
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        lucide.createIcons(); 
+        fetchFiles();
+        fetchRecycledFiles();
+        updateChartData();
+      });
+    </script>
+
+    <script src="./scripts/main.js"></script>
+    <script src="./scripts/charts.js"></script>
+  </body>
+</html>
